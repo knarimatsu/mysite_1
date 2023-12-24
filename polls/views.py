@@ -8,11 +8,9 @@ def index(request):
 
 def detail(request, question_id):
     """Questionの詳細を参照
-
     Args:
         request (_type_): リクエスト
         question_id (_type_): Questionのid
-
     Returns:
         _type_: 選択されたQuestionの詳細が何かを表示してくれる
     """
@@ -21,11 +19,9 @@ def detail(request, question_id):
 
 def results(request, question_id):
     """Questionの結果を参照
-
     Args:
         request (_type_): _description_
         question_id (_type_): _description_
-
     Returns:
         _type_: _description_
     """
@@ -35,11 +31,9 @@ def results(request, question_id):
 
 def vote(reqest, question_id):
     """投票
-
     Args:
         reqest (_type_): _description_
         question_id (_type_): _description_
-
     Returns:
         _type_: _description_
     """
