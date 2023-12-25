@@ -6,7 +6,7 @@ from . import views
 第2引数:該当するURIがリクエストできた時に実行するviewのメソッド
 第3引数(name=の部分):任意、名前つけるだけ
 """
-
+app_name = "polls"
 urlpatterns = [
     path("", views.index, name="index"),
     path("<int:question_id>/", views.detail, name="detail"),
