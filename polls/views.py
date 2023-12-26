@@ -1,45 +1,36 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from django.template import loader
 from django.urls import reverse
+from django.views import generic
 
 from .models import Question, Choice
 
 
-def index(request):
+class IndexView(generic.ListView):
     """Questionのリスト
     Args:
         request (_type_): _description_
     Returns:
         _type_: Questionで新しいものから5個ほど取り出し返す
     """
-    latest_question_list = Question.objects.order_by("-pub_date")[:5]
-    context = {"latest_question_list": latest_question_list}
-    return render(request, "polls/index.html", context)
+
+    template_name = "polls/index.html"
+    context_object_name = "latest_question_list"
+
+    def get_queryset(self) -> QuerySet[Any]:
+        return Question.objects.order_by("-pub_date")[:5]
 
 
-def detail(request, question_id):
-    """Questionの詳細を参照
-    Args:
-        request (_type_): リクエスト
-        question_id (_type_): Questionのid
-    Returns:
-        _type_: 選択されたQuestionの詳細が何かを表示してくれる
-    """
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, "polls/detail.html", {"question": question})
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = "polls/detail.html"
 
 
-def results(request, question_id):
-    """Questionの結果を参照
-    Args:
-        request (_type_): _description_
-        question_id (_type_): _description_
-    Returns:
-        _type_: _description_
-    """
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, "polls/result.html", {"question": question})
+class ReusltsView(generic.DeleteView):
+    model = Question
+    template_name = "polls/result.html"
 
 
 def vote(request, question_id):
